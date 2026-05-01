@@ -2,6 +2,55 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
+/* Custom fonts from oliveapp.com */
+@font-face {
+  font-family: nueuFont;
+  src: url('/fonts/nueu-200.ttf') format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: nueuFont;
+  src: url('/fonts/nueu-300.ttf') format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: nueuFont;
+  src: url('/fonts/nueu-400.ttf') format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: nueuFont;
+  src: url('/fonts/nueu-600.ttf') format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: nueuFont;
+  src: url('/fonts/nueu-700.ttf') format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: nueuFont;
+  src: url('/fonts/nueu-900.ttf') format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: pallFont;
+  src: url('/pallFont.ttf') format("truetype");
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -119,7 +168,7 @@
   --chart-4: 45 80% 55%;
   --chart-5: 0 72% 51%;
 
-  --app-font-sans: 'Inter', sans-serif;
+  --app-font-sans: 'DM Sans', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
   --radius: .5rem;
@@ -296,4 +345,14 @@
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
   }
+}
+
+/* Apply nueuFont to all headings globally */
+h1, h2, h3, h4, h5, h6 {
+  font-family: nueuFont, 'DM Sans', Arial, sans-serif;
+}
+
+/* Body uses DM Sans */
+body {
+  font-family: 'DM Sans', Arial, sans-serif;
 }
