@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/artifacts/api-server/src/app.ts"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/artifacts/olive-app/index.html"
+    }
+  ],
+  "functions": {
+    "artifacts/api-server/src/app.ts": {
+      "runtime": "vercel-node@latest",
+      "includeFiles": "artifacts/api-server/src/**"
+    }
+  }
+}
