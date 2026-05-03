@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -7,12 +8,14 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/artifacts/olive-app/index.html"
+      "destination": "/artifacts/olive-app/dist/public/$1"
     }
   ],
   "functions": {
     "api/index.ts": {
-      "runtime": "vercel-node@latest"
+      "runtime": "vercel-node@latest",
+      "memory": 1024,
+      "maxDuration": 10
     }
   }
 }
