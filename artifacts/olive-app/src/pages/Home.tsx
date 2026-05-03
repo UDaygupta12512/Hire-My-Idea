@@ -37,7 +37,7 @@ function Navbar() {
       <div className="max-w-[1100px] mx-auto px-6 py-3 flex items-center justify-between">
         <OliveLogo />
         <div className="hidden lg:flex items-center gap-7">
-          {["Solutions", "Features", "Pricing", "Blog", "Restaurants", "Food"].map((item) => {
+          {["Olive Health", "Solutions", "Features", "Pricing", "Blog", "Restaurants", "Food"].map((item) => {
             const hasDropdown = ["Solutions", "Blog", "Food"].includes(item);
             return (
               <button key={item} className="flex items-center gap-1 text-[15px] font-medium text-gray-800 hover:text-gray-900 transition-colors">
@@ -63,7 +63,7 @@ function Navbar() {
       </div>
       {open && (
         <div className="lg:hidden bg-white border-t border-green-100 px-6 py-4 space-y-3">
-          {["Solutions", "Features", "Pricing", "Blog", "Restaurants", "Food"].map((item) => (
+          {["Olive Health", "Solutions", "Features", "Pricing", "Blog", "Restaurants", "Food"].map((item) => (
             <button key={item} className="block w-full text-left text-[16px] font-medium text-gray-800 py-2">{item}</button>
           ))}
           <div className="pt-3 border-t border-gray-100 space-y-3">
@@ -1075,27 +1075,25 @@ export default function Home() {
 
         {/* Phone + side panels */}
         <div className="relative flex items-end justify-center gap-4 mt-10">
-          {/* Left ghost panel */}
-          <div className="hidden sm:block opacity-50 mb-6" style={{ transform: "scale(0.82)", transformOrigin: "bottom right" }}>
-            <div className="w-36 h-52 rounded-3xl overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=400&auto=format&fit=crop"
-                alt=""
-                className="w-full h-full object-cover"
-              />
+          {/* Left ghost panels */}
+          <div className="hidden sm:flex flex-col gap-3 mb-6 opacity-50" style={{ transform: "scale(0.82)", transformOrigin: "bottom right" }}>
+            <div className="w-32 h-32 rounded-2xl overflow-hidden">
+              <img src={img("/slider/product-1.png")} alt="" className="w-full h-full object-cover" />
+            </div>
+            <div className="w-32 h-32 rounded-2xl overflow-hidden">
+              <img src={img("/slider/product-4.png")} alt="" className="w-full h-full object-cover" />
             </div>
           </div>
 
           <PhoneMockup />
 
-          {/* Right ghost panel */}
-          <div className="hidden sm:block opacity-50 mb-6" style={{ transform: "scale(0.82)", transformOrigin: "bottom left" }}>
-            <div className="w-36 h-52 rounded-3xl overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1605522561233-768ad7a8fabf?q=80&w=400&auto=format&fit=crop"
-                alt=""
-                className="w-full h-full object-cover"
-              />
+          {/* Right ghost panels */}
+          <div className="hidden sm:flex flex-col gap-3 mb-6 opacity-50" style={{ transform: "scale(0.82)", transformOrigin: "bottom left" }}>
+            <div className="w-32 h-32 rounded-2xl overflow-hidden">
+              <img src={img("/slider/product-6.png")} alt="" className="w-full h-full object-cover" />
+            </div>
+            <div className="w-32 h-32 rounded-2xl overflow-hidden">
+              <img src={img("/slider/product-8.png")} alt="" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
