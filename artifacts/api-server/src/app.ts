@@ -32,4 +32,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Hire My Idea API is running!",
+    health: "/api/healthz"
+  });
+});
+
 export default app;
