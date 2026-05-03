@@ -3,6 +3,10 @@ import { logger } from "./lib/logger";
 
 const port = Number(process.env["PORT"] || 3000);
 
-app.listen(port, () => {
-  logger.info({ port }, "Server listening");
-});
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    logger.info({ port }, "Server listening");
+  });
+}
+
+export default app;
