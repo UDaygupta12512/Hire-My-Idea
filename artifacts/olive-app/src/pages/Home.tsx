@@ -112,13 +112,22 @@ function TrustBanner() {
   );
 }
 
+/* ── Real oliveapp.com CDN base ── */
+const OLIVE_CDN = "https://www.oliveapp.com/assets/images";
+
 /* ── Infinite Scroll Strip ── */
-const PRODUCT_IMAGES = Array.from({ length: 10 }, (_, i) => ({
-  src: img(`/slider/product-${i + 1}.png`),
-  alt: ["Organic Bagels", "Cocao-nectar Bar", "Strawberry Vanilla Sparkling Tonic", "Fig and Olive Crackers",
-    "San Pellegrino Sparkling Water", "Sea Salt & Vinegar Crisps", "Larabar Chocolate Chip Bar",
-    "Sourlittles", "Gradea Raw Pure Jersey Milk", "Late July Organic Tortilla"][i],
-}));
+const PRODUCT_IMAGES = [
+  { src: `${OLIVE_CDN}/how-to/slider/product-1.png`, alt: "Organic Bagels" },
+  { src: `${OLIVE_CDN}/how-to/slider/product-2.png`, alt: "Cocao-nectar Bar, Oregon Peppermint" },
+  { src: `${OLIVE_CDN}/how-to/slider/product-3.png`, alt: "Strawberry Vanilla Sparkling Tonic" },
+  { src: `${OLIVE_CDN}/how-to/slider/product-4.png`, alt: "Fig and Olive Crackers" },
+  { src: `${OLIVE_CDN}/how-to/slider/product-5.png`, alt: "San Pellegrino Sparkling Natural Mineral Water" },
+  { src: `${OLIVE_CDN}/how-to/slider/product-6.png`, alt: "Sea Salt & Vinegar Potato Crisps" },
+  { src: `${OLIVE_CDN}/how-to/slider/product-7.png`, alt: "Larabar Chocolate Chip Cookie Dough Bar" },
+  { src: `${OLIVE_CDN}/how-to/slider/product-8.png`, alt: "Sourlittles" },
+  { src: `${OLIVE_CDN}/how-to/slider/product-9.png`, alt: "Gradea Raw Pure Jersey Milk" },
+  { src: `${OLIVE_CDN}/how-to/slider/product-10.png`, alt: "Late July Snacks Thin and Crispy Organic Tortilla" },
+];
 
 function InfiniteImageStrip({ direction = "left", speed = 40, fade = true }: { direction?: "left" | "right"; speed?: number; fade?: boolean }) {
   const items = [...PRODUCT_IMAGES, ...PRODUCT_IMAGES, ...PRODUCT_IMAGES];
@@ -178,7 +187,7 @@ function PhoneMockup() {
           {/* product detail card */}
           <div className="mx-3 rounded-2xl overflow-hidden bg-white" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.10)" }}>
             <div className="px-3 pt-3 pb-2 flex items-start gap-2">
-              <img src={img("/slider/product-5.png")} alt="San Pellegrino" className="w-12 h-16 object-contain flex-shrink-0" />
+              <img src={`${OLIVE_CDN}/how-to/slider/product-5.png`} alt="San Pellegrino" className="w-12 h-16 object-contain flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="text-[11px] font-bold text-gray-900 leading-tight">San Pellegrino Sparkling<br />Natural Mineral Water (...</p>
                 <p className="text-[10px] text-gray-400 mt-0.5">Sanpellegrino</p>
@@ -246,7 +255,7 @@ function HowItWorksSection() {
       desc: "When you open Olive simply scan the barcode to instantly detect product ingredients. Olive's intuitive design means busy parents can quickly see which items contain harmful substances, delivering peace of mind with every scan.",
       visual: (
         <div className="relative flex items-center justify-center">
-          <img src={img("/barcode-image.png")} alt="Barcode" className="w-full max-w-xs rounded-2xl object-contain" />
+          <img src={`${OLIVE_CDN}/how-to/barcode-image.png`} alt="Barcode" className="w-full max-w-xs rounded-2xl object-contain" />
         </div>
       ),
     },
@@ -273,9 +282,9 @@ function HowItWorksSection() {
           <div className="flex gap-2 overflow-hidden">
             <div className="flex gap-2 animate-scroll-left" style={{ width: "max-content", animationDuration: "22s" }}>
               {[...Array(3)].fill([
-                img("/slider/product-2.png"),
-                img("/slider/product-1.png"),
-                img("/slider/product-3.png"),
+                `${OLIVE_CDN}/how-to/slider/product-2.png`,
+                `${OLIVE_CDN}/how-to/slider/product-1.png`,
+                `${OLIVE_CDN}/how-to/slider/product-3.png`,
               ]).flat().map((src, i) => (
                 <img key={i} src={src} alt="product" className="h-24 w-24 object-cover rounded-xl flex-shrink-0" />
               ))}
@@ -300,7 +309,7 @@ function HowItWorksSection() {
           <h2 className="font-pall text-primary max-w-xl font-[500] text-2xl md:text-[3.2rem] text-center">
             How the Olive Food Scanner App Works
           </h2>
-          <img src={img("/title.png")} alt="" className="h-16 md:h-24 w-auto absolute -right-8 md:-right-16 top-1/2 -translate-y-1/2 pointer-events-none" style={{ height: "6em" }} />
+          <img src={`${OLIVE_CDN}/title.png`} alt="" className="h-16 md:h-24 w-auto absolute -right-8 md:-right-16 top-1/2 -translate-y-1/2 pointer-events-none" style={{ height: "6em" }} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 pt-8 md:pt-24 gap-6 w-full">
           {steps.map((step, i) => (
@@ -440,11 +449,11 @@ function ScoreCounter() {
   return (
     <div ref={ref} className="bg-white rounded-3xl p-8 shadow-lg" style={{ border: "1px solid #e8f5e0" }}>
       <div className="flex items-start gap-4 mb-6">
-        <img src={img("/slider/product-2.png")} alt="product" className="w-16 h-20 object-contain rounded-xl" />
-        <img src={img("/slider/straus-ice-cream.png")} alt="straus" className="w-20 h-20 object-cover rounded-xl" />
-        <img src={img("/slider/product-3.png")} alt="product" className="w-16 h-20 object-contain rounded-xl" />
+        <img src={`${OLIVE_CDN}/how-to/slider/product-2.png`} alt="product" className="w-16 h-20 object-contain rounded-xl" />
+        <img src={`${OLIVE_CDN}/how-to/slider/straus-ice-cream.png`} alt="straus" className="w-20 h-20 object-cover rounded-xl" />
+        <img src={`${OLIVE_CDN}/how-to/slider/product-3.png`} alt="product" className="w-16 h-20 object-contain rounded-xl" />
       </div>
-      <img src={img("/slider/straus-ice-cream-description.png")} alt="Straus Ice Cream" className="w-full rounded-xl mb-4 object-contain" style={{ maxHeight: "80px" }} />
+      <img src={`${OLIVE_CDN}/how-to/slider/straus-ice-cream-description.png`} alt="Straus Ice Cream" className="w-full rounded-xl mb-4 object-contain" style={{ maxHeight: "80px" }} />
       <div className="text-center">
         <p className="text-[13px] text-gray-400 mb-1">Straus Ice Cream</p>
         <div className="flex items-end justify-center gap-1">
@@ -573,17 +582,17 @@ function TestimonialsSection() {
   const reviews = [
     {
       name: "Megan L.",
-      photo: img("/testimonials/meghan-l.png"),
+      photo: `${OLIVE_CDN}/testimonials/meghan-l.png`,
       text: "Olive has completely changed the way I shop for my family. I feel confident knowing exactly what's in our food before it ever hits our pantry.",
     },
     {
       name: "Tina B.",
-      photo: img("/testimonials/tina-b.png"),
+      photo: `${OLIVE_CDN}/testimonials/tina-b.png`,
       text: "Meal planning used to be stressful. Now I scan, get recommendations, and feel great about what my kids are eating. It's that easy.",
     },
     {
       name: "Lila M.",
-      photo: img("/testimonials/lila-m.png"),
+      photo: `${OLIVE_CDN}/testimonials/lila-m.png`,
       text: "After just a week of using Olive, I feel more in control of my family's nutrition than ever before. It's empowering to make informed choices so quickly.",
     },
   ];
@@ -607,7 +616,7 @@ function TestimonialsSection() {
 
         {/* Hero testimonials image */}
         <div className="rounded-3xl overflow-hidden mb-12 relative" style={{ maxHeight: "380px" }}>
-          <img src={img("/testimonials/testimonials.png")} alt="Testimonials" className="w-full h-full object-cover" />
+          <img src={`${OLIVE_CDN}/testimonials.png`} alt="Testimonials" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </div>
 
@@ -797,7 +806,7 @@ const BG_SLIDES = [
   "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=2940&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1605522561233-768ad7a8fabf?q=80&w=2940&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1576867757603-05b134ebc379?q=80&w=2940&auto=format&fit=crop",
-  img("/showcase.jpeg"),
+  `${OLIVE_CDN}/showcase.jpeg`,
 ];
 
 function HeroCtaSection() {
@@ -922,7 +931,7 @@ function FaqSection() {
                   Frequently Asked Questions by Parents
                 </h2>
                 <img
-                  src={img("/olive-faq.png")}
+                  src={`${OLIVE_CDN}/olive-faq.png`}
                   alt="Olive FAQ"
                   className="absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 pointer-events-none select-none"
                   style={{ width: "5em" }}
