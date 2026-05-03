@@ -3,12 +3,10 @@ import { ChevronDown, ArrowRight, Apple, Menu, X, Check, ChevronUp } from "lucid
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-/* ── helpers ── */
 function img(path: string) {
   return `${BASE}${path}`;
 }
 
-/* ── Olive logo using the real SVG + wordmark ── */
 function OliveLogo() {
   return (
     <a href="#" className="flex items-center gap-1.5">
@@ -29,7 +27,6 @@ function OliveLogo() {
   );
 }
 
-/* ── Nav ── */
 function Navbar() {
   const [open, setOpen] = useState(false);
   return (
@@ -80,7 +77,6 @@ function Navbar() {
   );
 }
 
-/* ── Trust Banner ── */
 const AVATAR_URLS = [
   "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
   "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
@@ -112,10 +108,8 @@ function TrustBanner() {
   );
 }
 
-/* ── Real oliveapp.com CDN base ── */
 const OLIVE_CDN = "https://www.oliveapp.com/assets/images";
 
-/* ── Infinite Scroll Strip ── */
 const PRODUCT_IMAGES = [
   { src: `${OLIVE_CDN}/how-to/slider/product-1.png`, alt: "Organic Bagels" },
   { src: `${OLIVE_CDN}/how-to/slider/product-2.png`, alt: "Cocao-nectar Bar, Oregon Peppermint" },
@@ -153,7 +147,6 @@ function InfiniteImageStrip({ direction = "left", speed = 40, fade = true }: { d
   );
 }
 
-/* ── Phone Mockup for Hero ── */
 const PHONE_SLIDER_ITEMS = [
   ...PRODUCT_IMAGES.slice(0, 5),
   ...PRODUCT_IMAGES.slice(0, 5),
@@ -181,18 +174,17 @@ function PhoneMockup() {
           boxShadow: "0 60px 120px rgba(0,0,0,0.22), 0 20px 50px rgba(0,0,0,0.12)",
         }}
       >
-        {/* dynamic island */}
+        {}
         <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-20" />
 
-        {/* product carousel inside phone — 3 visible, center highlighted */}
+        {}
         <div className="pt-12 pb-0 overflow-hidden">
           <div className="pb-3 overflow-hidden" style={{ position: "relative" }}>
             <div
               className="flex items-center transition-transform duration-500 ease-in-out"
               style={{
                 gap: "8px",
-                /* center = 135px (half of 270px phone interior).
-                   item i center = 99 + i*80.  shift = 135 - (99+80i) = 36 - 80i */
+
                 transform: `translateX(${36 - activeIdx * 80}px)`,
                 width: "max-content",
                 paddingLeft: "99px",
@@ -232,7 +224,7 @@ function PhoneMockup() {
             </div>
           </div>
 
-          {/* product-5-details.png — the real app screenshot */}
+          {}
           <img
             src={`${OLIVE_CDN}/how-to/slider/product-5-details.png`}
             alt="San Pellegrino product detail"
@@ -245,7 +237,6 @@ function PhoneMockup() {
   );
 }
 
-/* ── Product Strip Section (between hero and How It Works) ── */
 function ProductStripSection() {
   return (
     <section className="py-16 bg-white relative overflow-hidden">
@@ -254,7 +245,6 @@ function ProductStripSection() {
   );
 }
 
-/* ── How It Works Steps ── */
 function HowItWorksSection() {
   const steps = [
     {
@@ -345,7 +335,6 @@ function HowItWorksSection() {
   );
 }
 
-/* ── Health Benefits ── */
 type TagItem = { icon: "check" | "cross"; text: string; direction: "left" | "right" };
 const TAG_ROWS: TagItem[][] = [
   [
@@ -645,7 +634,7 @@ function TestimonialsSection() {
         </div>
 
         <div className="text-center mt-8">
-          <a href="https://apps.apple.com/us/app/olive-holistic-food-scanner/id6739765789"
+          <a href="https:
             className="text-[15px] font-semibold underline" style={{ color: "#1a3a0a" }}>
             read all 3,147+ reviews
           </a>
@@ -655,7 +644,6 @@ function TestimonialsSection() {
   );
 }
 
-/* ── Comparison Table ── */
 function ComparisonSection() {
   const features = [
     "Detailed Product Breakdown",
@@ -729,7 +717,6 @@ function ComparisonSection() {
   );
 }
 
-/* ── Pricing ── */
 function PricingSection() {
   return (
     <section className="py-12 md:py-24 pb-72 px-4 relative overflow-hidden bg-white" id="pricing">
@@ -747,7 +734,7 @@ function PricingSection() {
           </div>
         </div>
         <div className="grid md:grid-cols-2 px-4 md:px-0 gap-8 max-w-4xl mx-auto">
-          {/* Monthly */}
+          {}
           <div className="rounded-3xl p-8 flex flex-col gap-8 relative" style={{ backgroundColor: "#F0F7F2" }}>
             <div className="absolute -top-16 -left-8">
               <img src={img("/olive-logo.svg")} alt="Olive Icon" className="w-24" />
@@ -776,7 +763,7 @@ function PricingSection() {
             </a>
           </div>
 
-          {/* Yearly */}
+          {}
           <div className="rounded-3xl p-8 flex flex-col gap-8 relative text-white" style={{ backgroundColor: "#386641" }}>
             <div className="space-y-1">
               <p className="text-lg font-medium capitalize">yearly</p>
@@ -808,7 +795,6 @@ function PricingSection() {
   );
 }
 
-/* ── Background Slideshow CTA ── */
 const BG_SLIDES = [
   "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=2940&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1605522561233-768ad7a8fabf?q=80&w=2940&auto=format&fit=crop",
@@ -872,7 +858,6 @@ function HeroCtaSection() {
   );
 }
 
-/* ── Independent section ── */
 function IndependentSection() {
   return (
     <div className="md:my-40 my-16 max-w-none mx-auto px-4 md:px-8">
@@ -897,7 +882,6 @@ function IndependentSection() {
   );
 }
 
-/* ── FAQ ── */
 const FAQS = [
   {
     q: "What is the Food Scanner App and how does it work?",
@@ -975,7 +959,6 @@ function FaqSection() {
   );
 }
 
-/* ── Bottom CTA ── */
 function BottomCtaSection() {
   return (
     <section className="py-20 text-white" style={{ backgroundColor: "#386641" }}>
@@ -1005,7 +988,6 @@ function BottomCtaSection() {
   );
 }
 
-/* ── Footer ── */
 function Footer() {
   return (
     <div className="md:mt-24 mt-8 max-w-7xl mx-auto px-4 md:px-8 pb-8">
@@ -1056,17 +1038,16 @@ function Footer() {
   );
 }
 
-/* ── Main Page ── */
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Sticky top bar: trust + nav */}
+      {}
       <div className="sticky top-0 z-50 bg-[#eef7ec]">
         <TrustBanner />
         <Navbar />
       </div>
 
-      {/* Hero */}
+      {}
       <section className="bg-[#eef7ec] text-center pt-14 pb-0 px-6 overflow-hidden">
         <h1
           className="font-pall font-[600] tracking-tight text-4xl md:text-7xl mb-6"
@@ -1085,9 +1066,9 @@ export default function Home() {
           <Apple size={20} /> Download for iOS
         </a>
 
-        {/* Phone + ghostly side panels */}
+        {}
         <div className="relative flex items-start justify-center mt-10">
-          {/* Left side: ghostly bleed-out images */}
+          {}
           <div
             className="hidden sm:flex gap-3"
             style={{
@@ -1108,7 +1089,7 @@ export default function Home() {
 
           <PhoneMockup />
 
-          {/* Right side: ghostly bleed-out images */}
+          {}
           <div
             className="hidden sm:flex gap-3"
             style={{
@@ -1129,37 +1110,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Product ticker strip section — bg-white py-12 md:py-48 */}
+      {}
       <ProductStripSection />
 
-      {/* How it works */}
+      {}
       <HowItWorksSection />
 
-      {/* Health benefits */}
+      {}
       <HealthBenefitsSection />
 
-      {/* Testimonials */}
+      {}
       <TestimonialsSection />
 
-      {/* Comparison */}
+      {}
       <ComparisonSection />
 
-      {/* Pricing */}
+      {}
       <PricingSection />
 
-      {/* Background CTA */}
+      {}
       <HeroCtaSection />
 
-      {/* Independent */}
+      {}
       <IndependentSection />
 
-      {/* FAQ */}
+      {}
       <FaqSection />
 
-      {/* Bottom CTA */}
+      {}
       <BottomCtaSection />
 
-      {/* Footer */}
+      {}
       <Footer />
     </div>
   );
