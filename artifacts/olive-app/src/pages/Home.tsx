@@ -154,84 +154,91 @@ function InfiniteImageStrip({ direction = "left", speed = 40, fade = true }: { d
 }
 
 /* ── Phone Mockup for Hero ── */
+const PHONE_SLIDER_ITEMS = [
+  ...PRODUCT_IMAGES.slice(0, 5),
+  ...PRODUCT_IMAGES.slice(0, 5),
+  ...PRODUCT_IMAGES.slice(0, 5),
+];
+
 function PhoneMockup() {
+  const [activeIdx, setActiveIdx] = useState(2);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % 5);
+    }, 2200);
+    return () => clearInterval(id);
+  }, []);
+
+  const displayItems = PRODUCT_IMAGES.slice(0, 5);
+
   return (
-    <div className="relative mx-auto" style={{ width: "270px" }}>
+    <div className="relative mx-auto" style={{ width: "290px" }}>
       <div
         className="relative bg-white rounded-[44px] overflow-hidden"
         style={{
-          border: "10px solid #d8d8d8",
-          boxShadow: "0 50px 100px rgba(0,0,0,0.20), 0 15px 40px rgba(0,0,0,0.10)",
+          border: "10px solid #d0d0d0",
+          boxShadow: "0 60px 120px rgba(0,0,0,0.22), 0 20px 50px rgba(0,0,0,0.12)",
         }}
       >
         {/* dynamic island */}
         <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-20" />
 
-        {/* product slider inside phone */}
-        <div className="pt-12 pb-1 overflow-hidden">
-          <div className="px-3 pb-2 overflow-x-hidden">
-            <div className="flex gap-2 animate-scroll-left" style={{ width: "max-content", animationDuration: "18s" }}>
-              {[...PRODUCT_IMAGES.slice(0, 5), ...PRODUCT_IMAGES.slice(0, 5)].map((p, i) => (
-                <div key={i} className="relative flex-shrink-0">
-                  <img src={p.src} alt={p.alt} className="h-20 w-20 rounded-xl object-cover" />
-                  {i === 4 || i === 9 ? (
-                    <div className="absolute bottom-1.5 right-1.5 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                      <Check size={10} color="white" strokeWidth={3} />
-                    </div>
-                  ) : null}
-                </div>
-              ))}
+        {/* product carousel inside phone — 3 visible, center highlighted */}
+        <div className="pt-12 pb-0 overflow-hidden">
+          <div className="pb-3 overflow-hidden" style={{ position: "relative" }}>
+            <div
+              className="flex items-center transition-transform duration-500 ease-in-out"
+              style={{
+                gap: "8px",
+                /* center = 135px (half of 270px phone interior).
+                   item i center = 99 + i*80.  shift = 135 - (99+80i) = 36 - 80i */
+                transform: `translateX(${36 - activeIdx * 80}px)`,
+                width: "max-content",
+                paddingLeft: "99px",
+              }}
+            >
+              {displayItems.map((p, i) => {
+                const isActive = i === activeIdx;
+                const isAdjacent = Math.abs(i - activeIdx) === 1 ||
+                  (activeIdx === 0 && i === 4) || (activeIdx === 4 && i === 0);
+                const scale = isActive ? 1 : 0.8;
+                const opacity = isActive ? 1 : isAdjacent ? 0.65 : 0.3;
+                return (
+                  <div
+                    key={i}
+                    className="relative flex-shrink-0 transition-all duration-500 ease-in-out"
+                    style={{
+                      transform: `scale(${scale})`,
+                      opacity,
+                      transformOrigin: "center center",
+                      zIndex: isActive ? 2 : 1,
+                    }}
+                  >
+                    <img
+                      src={p.src}
+                      alt={p.alt}
+                      className="rounded-xl object-cover"
+                      style={{ width: "72px", height: "72px" }}
+                    />
+                    {isActive && (
+                      <div className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center" style={{ zIndex: 3 }}>
+                        <Check size={10} color="white" strokeWidth={3} />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* product detail card */}
-          <div className="mx-3 rounded-2xl overflow-hidden bg-white" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.10)" }}>
-            <div className="px-3 pt-3 pb-2 flex items-start gap-2">
-              <img src={`${OLIVE_CDN}/how-to/slider/product-5.png`} alt="San Pellegrino" className="w-12 h-16 object-contain flex-shrink-0" />
-              <div className="flex-1 min-w-0">
-                <p className="text-[11px] font-bold text-gray-900 leading-tight">San Pellegrino Sparkling<br />Natural Mineral Water (...</p>
-                <p className="text-[10px] text-gray-400 mt-0.5">Sanpellegrino</p>
-                <div className="flex items-center gap-1 mt-1.5">
-                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                  <span className="text-[12px] font-bold text-gray-900">52/100</span>
-                  <span className="text-[10px] text-gray-400 ml-0.5">Limit</span>
-                </div>
-              </div>
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ccc" strokeWidth="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-              </svg>
-            </div>
-
-            <div className="px-3 pb-2 space-y-1.5 border-t border-gray-50 pt-2">
-              {[
-                { icon: "⚠️", label: "Contaminants", value: "7", dotColor: "bg-red-500" },
-                { icon: "💧", label: "Fluoride", value: "Yes", dotColor: "bg-red-500" },
-                { icon: "🔬", label: "PFAS", value: "No", dotColor: "bg-green-500" },
-                { icon: "🔵", label: "Microplastics", value: "Minimal", dotColor: "bg-green-500" },
-                { icon: "📊", label: "pH Level", value: "5.7", dotColor: "bg-gray-300" },
-              ].map((row, i) => (
-                <div key={i} className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[10px]">{row.icon}</span>
-                    <span className="text-[11px] text-gray-500">{row.label}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] font-medium text-gray-800">{row.value}</span>
-                    <div className={`w-2 h-2 rounded-full ${row.dotColor}`} />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="border-t border-gray-50 px-3 pt-2 pb-2">
-              <p className="text-[12px] font-bold text-gray-900 mb-1">Contaminants</p>
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] text-gray-500">Nitrate</span>
-                <span className="text-[10px] font-bold text-red-600 bg-red-100 px-2 py-0.5 rounded-full">8x limit</span>
-              </div>
-            </div>
-          </div>
-          <div className="h-4" />
+          {/* product-5-details.png — the real app screenshot */}
+          <img
+            src={`${OLIVE_CDN}/how-to/slider/product-5-details.png`}
+            alt="San Pellegrino product detail"
+            className="w-full object-cover object-top"
+            style={{ display: "block" }}
+          />
         </div>
       </div>
     </div>
@@ -1078,45 +1085,45 @@ export default function Home() {
           <Apple size={20} /> Download for iOS
         </a>
 
-        {/* Phone + side panels aligned at the phone's internal slider level */}
+        {/* Phone + ghostly side panels */}
         <div className="relative flex items-start justify-center mt-10">
-          {/* Left side: product images aligned with phone's internal slider */}
+          {/* Left side: ghostly bleed-out images */}
           <div
-            className="hidden sm:flex gap-2"
+            className="hidden sm:flex gap-3"
             style={{
-              paddingTop: "58px",
-              opacity: 0.35,
-              filter: "blur(1px)",
-              width: "200px",
+              paddingTop: "70px",
+              opacity: 0.18,
+              filter: "blur(3.5px)",
+              width: "240px",
               flexShrink: 0,
               overflow: "hidden",
-              maskImage: "linear-gradient(to left, transparent 0%, black 50%)",
-              WebkitMaskImage: "linear-gradient(to left, transparent 0%, black 50%)",
+              maskImage: "linear-gradient(to left, transparent 0%, black 60%)",
+              WebkitMaskImage: "linear-gradient(to left, transparent 0%, black 60%)",
             }}
           >
-            {PRODUCT_IMAGES.slice(7, 10).map((p, i) => (
-              <img key={i} src={p.src} alt={p.alt} className="h-20 w-20 rounded-xl object-cover flex-shrink-0" />
+            {PRODUCT_IMAGES.slice(8, 10).map((p, i) => (
+              <img key={i} src={p.src} alt={p.alt} className="rounded-2xl object-cover flex-shrink-0" style={{ width: "110px", height: "110px" }} />
             ))}
           </div>
 
           <PhoneMockup />
 
-          {/* Right side: product images aligned with phone's internal slider */}
+          {/* Right side: ghostly bleed-out images */}
           <div
-            className="hidden sm:flex gap-2"
+            className="hidden sm:flex gap-3"
             style={{
-              paddingTop: "58px",
-              opacity: 0.35,
-              filter: "blur(1px)",
-              width: "200px",
+              paddingTop: "70px",
+              opacity: 0.18,
+              filter: "blur(3.5px)",
+              width: "240px",
               flexShrink: 0,
               overflow: "hidden",
-              maskImage: "linear-gradient(to right, transparent 0%, black 50%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 50%)",
+              maskImage: "linear-gradient(to right, transparent 0%, black 60%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 60%)",
             }}
           >
-            {PRODUCT_IMAGES.slice(4, 7).map((p, i) => (
-              <img key={i} src={p.src} alt={p.alt} className="h-20 w-20 rounded-xl object-cover flex-shrink-0" />
+            {PRODUCT_IMAGES.slice(5, 7).map((p, i) => (
+              <img key={i} src={p.src} alt={p.alt} className="rounded-2xl object-cover flex-shrink-0" style={{ width: "110px", height: "110px" }} />
             ))}
           </div>
         </div>
