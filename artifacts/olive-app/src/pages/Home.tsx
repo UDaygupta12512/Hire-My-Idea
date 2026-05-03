@@ -120,10 +120,13 @@ const PRODUCT_IMAGES = Array.from({ length: 10 }, (_, i) => ({
     "Sourlittles", "Gradea Raw Pure Jersey Milk", "Late July Organic Tortilla"][i],
 }));
 
-function InfiniteImageStrip({ direction = "left", speed = 40 }: { direction?: "left" | "right"; speed?: number }) {
+function InfiniteImageStrip({ direction = "left", speed = 40, fade = true }: { direction?: "left" | "right"; speed?: number; fade?: boolean }) {
   const items = [...PRODUCT_IMAGES, ...PRODUCT_IMAGES, ...PRODUCT_IMAGES];
   return (
-    <div className="overflow-hidden w-full">
+    <div
+      className="overflow-hidden w-full"
+      style={fade ? { maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)" } : {}}
+    >
       <div
         className={`flex gap-3 ${direction === "left" ? "animate-scroll-left" : "animate-scroll-right"}`}
         style={{ width: "max-content", animationDuration: `${speed}s` }}
@@ -228,19 +231,9 @@ function PhoneMockup() {
 
 /* ── Product Strip Section (between hero and How It Works) ── */
 function ProductStripSection() {
-  const stripsConfig = [
-    { direction: "left" as const, speed: 28 },
-    { direction: "right" as const, speed: 32 },
-    { direction: "left" as const, speed: 25 },
-  ];
-
   return (
-    <section className="py-12 md:py-48 bg-white relative overflow-hidden">
-      <div className="space-y-4">
-        {stripsConfig.map((strip, i) => (
-          <InfiniteImageStrip key={i} direction={strip.direction} speed={strip.speed} />
-        ))}
-      </div>
+    <section className="py-16 bg-white relative overflow-hidden">
+      <InfiniteImageStrip direction="left" speed={30} fade={true} />
     </section>
   );
 }
@@ -262,8 +255,8 @@ function HowItWorksSection() {
       desc: "After scanning, our food scanner app compares product data with an extensive, up-to-date food database. Using expert nutritional guidelines, Olive filters out potentially dangerous ingredients so you never have to second guess.",
       visual: (
         <div className="space-y-2 overflow-hidden">
-          <InfiniteImageStrip direction="left" speed={30} />
-          <InfiniteImageStrip direction="right" speed={35} />
+          <InfiniteImageStrip direction="left" speed={30} fade={true} />
+          <InfiniteImageStrip direction="right" speed={35} fade={true} />
           <div className="flex justify-center pt-2">
             <div className="flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-full text-[14px] font-semibold">
               <Check size={14} /> Safe to consume
@@ -402,7 +395,10 @@ function TagChip({ icon, text }: { icon: "check" | "cross"; text: string }) {
 function TagScroll({ tags, direction = "left", speed = 30 }: { tags: {icon: "check" | "cross"; text: string}[]; direction?: "left" | "right"; speed?: number }) {
   const doubled = [...tags, ...tags, ...tags];
   return (
-    <div className="overflow-hidden">
+    <div
+      className="overflow-hidden"
+      style={{ maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)" }}
+    >
       <div
         className={`flex gap-3 ${direction === "left" ? "animate-scroll-left" : "animate-scroll-right"}`}
         style={{ width: "max-content", animationDuration: `${speed}s` }}
@@ -1073,28 +1069,46 @@ export default function Home() {
           <Apple size={20} /> Download for iOS
         </a>
 
-        {/* Phone + side panels */}
-        <div className="relative flex items-end justify-center gap-4 mt-10">
-          {/* Left ghost panels */}
-          <div className="hidden sm:flex flex-col gap-3 mb-6 opacity-50" style={{ transform: "scale(0.82)", transformOrigin: "bottom right" }}>
-            <div className="w-32 h-32 rounded-2xl overflow-hidden">
-              <img src={img("/slider/product-1.png")} alt="" className="w-full h-full object-cover" />
-            </div>
-            <div className="w-32 h-32 rounded-2xl overflow-hidden">
-              <img src={img("/slider/product-4.png")} alt="" className="w-full h-full object-cover" />
-            </div>
+        {/* Phone + side panels aligned at the phone's internal slider level */}
+        <div className="relative flex items-start justify-center mt-10">
+          {/* Left side: product images aligned with phone's internal slider */}
+          <div
+            className="hidden sm:flex gap-2"
+            style={{
+              paddingTop: "58px",
+              opacity: 0.35,
+              filter: "blur(1px)",
+              width: "200px",
+              flexShrink: 0,
+              overflow: "hidden",
+              maskImage: "linear-gradient(to left, transparent 0%, black 50%)",
+              WebkitMaskImage: "linear-gradient(to left, transparent 0%, black 50%)",
+            }}
+          >
+            {PRODUCT_IMAGES.slice(7, 10).map((p, i) => (
+              <img key={i} src={p.src} alt={p.alt} className="h-20 w-20 rounded-xl object-cover flex-shrink-0" />
+            ))}
           </div>
 
           <PhoneMockup />
 
-          {/* Right ghost panels */}
-          <div className="hidden sm:flex flex-col gap-3 mb-6 opacity-50" style={{ transform: "scale(0.82)", transformOrigin: "bottom left" }}>
-            <div className="w-32 h-32 rounded-2xl overflow-hidden">
-              <img src={img("/slider/product-6.png")} alt="" className="w-full h-full object-cover" />
-            </div>
-            <div className="w-32 h-32 rounded-2xl overflow-hidden">
-              <img src={img("/slider/product-8.png")} alt="" className="w-full h-full object-cover" />
-            </div>
+          {/* Right side: product images aligned with phone's internal slider */}
+          <div
+            className="hidden sm:flex gap-2"
+            style={{
+              paddingTop: "58px",
+              opacity: 0.35,
+              filter: "blur(1px)",
+              width: "200px",
+              flexShrink: 0,
+              overflow: "hidden",
+              maskImage: "linear-gradient(to right, transparent 0%, black 50%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 50%)",
+            }}
+          >
+            {PRODUCT_IMAGES.slice(4, 7).map((p, i) => (
+              <img key={i} src={p.src} alt={p.alt} className="h-20 w-20 rounded-xl object-cover flex-shrink-0" />
+            ))}
           </div>
         </div>
       </section>
